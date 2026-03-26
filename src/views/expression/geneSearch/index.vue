@@ -40,12 +40,12 @@ import geneData from '@/data/expression/gene_expression.json'
 
 export default {
 
-  name: "GeneExpressionViolin",
+  name: 'GeneExpressionViolin',
 
   data() {
     return {
 
-      keyword: "",
+      keyword: '',
 
       rawData: [],
 
@@ -77,14 +77,13 @@ export default {
       const key = this.keyword.trim()
 
       if (!key) {
-        this.$message.warning("请输入 GeneId 或 GeneName")
+        this.$message.warning("请输入基因名或基因ID")
         return
       }
 
       this.loading = true
 
       setTimeout(() => {
-
         const matched = this.rawData.filter(item =>
 
           item.geneId.includes(key) ||
@@ -134,8 +133,7 @@ export default {
     },
 
     resetSearch() {
-
-      this.keyword = ""
+      this.keyword = ''
 
       this.useLog = false
 

@@ -50,7 +50,7 @@
         <el-checkbox label="流行性感冒" />
         <el-checkbox label="手足口病" />
       </el-checkbox-group>
-      
+
       <h4 style="width:100%;color: dimgray;">慢性疾病筛选</h4>
       <el-checkbox-group v-model="query.chronicDiseases">
         <el-checkbox label="红细胞增多症" />
@@ -60,7 +60,7 @@
         <el-checkbox label="脂肪肝" />
         <el-checkbox label="高尿酸" />
       </el-checkbox-group>
-      
+
       <div style="margin-top:10px;" class="button-wrapper">
         <el-button type="primary" @click="filterSamples">查询患者样本</el-button>
         <el-button @click="resetFilters">重置</el-button>
@@ -92,7 +92,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <!-- 分页组件 -->
     <div class="pagination" style="text-align:center; margin-top:20px;">
       <el-pagination
@@ -189,7 +189,7 @@ export default {
       })
     },
     // ⭐ 分页（在模板的分页组件里绑定该事件）
-    handlePageChange(page) {    
+    handlePageChange(page) {
       this.currentPage = page
     },
     // ⭐ 点击查询
@@ -288,7 +288,7 @@ export default {
 .button-wrapper {
   width: 100%;       /* 占满整行 */
   margin: 15px 0;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .filtered-container h4 {

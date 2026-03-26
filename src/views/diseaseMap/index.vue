@@ -10,12 +10,12 @@
           <template #label>
             <span class="required" style="color:red;">*</span> 条件选项
           </template>
-          <el-select v-model="barQuery.filterKey" placeholder='选择条件' clearable>
+          <el-select v-model="barQuery.filterKey" placeholder="选择条件" clearable>
             <el-option
-            v-for="key in Object.keys(optionsMap)"
-            :key="key"
-            :label="key"
-            :value="key"
+              v-for="key in Object.keys(optionsMap)"
+              :key="key"
+              :label="key"
+              :value="key"
             />
           </el-select>
         </el-form-item>
@@ -24,18 +24,18 @@
           <template #label>
             <span class="required" style="color:red;">*</span> 条件值
           </template>
-          <el-select v-model="barQuery.filterValue" placeholder='选择条件值(最多10个)' multiple collapse-tags clearable>
+          <el-select v-model="barQuery.filterValue" placeholder="选择条件值(最多10个)" multiple collapse-tags clearable>
             <el-option
-            v-for="item in optionsMap[barQuery.filterKey] || []"
-            :key="item"
-            :label="item"
-            :value="item"
+              v-for="item in optionsMap[barQuery.filterKey] || []"
+              :key="item"
+              :label="item"
+              :value="item"
             />
           </el-select>
         </el-form-item>
 
         <el-form-item>
-          <el-button class="analyze-rate-btn" @click="handleDiseaseSearch" :disabled="!isDiseaseRateFormValid">
+          <el-button class="analyze-rate-btn" :disabled="!isDiseaseRateFormValid" @click="handleDiseaseSearch">
             患病率分析
           </el-button>
           <el-button @click="resetBar">重置</el-button>
@@ -55,12 +55,12 @@
           <template #label>
             <span class="required" style="color:red;">*</span> 疾病名称
           </template>
-          <el-select v-model="pieQuery.diseases" multiple placeholder='选择疾病(最多11个)' collapse-tags>
+          <el-select v-model="pieQuery.diseases" multiple placeholder="选择疾病(最多11个)" collapse-tags>
             <el-option
-            v-for="disease in diseaseList"
-            :key="disease"
-            :label="disease"
-            :value="disease"
+              v-for="disease in diseaseList"
+              :key="disease"
+              :label="disease"
+              :value="disease"
             />
           </el-select>
         </el-form-item>
@@ -69,18 +69,18 @@
           <template #label>
             <span class="required" style="color:red;">*</span> 条件选项
           </template>
-          <el-select v-model="pieQuery.filterKey" placeholder='选择条件' clearable>
+          <el-select v-model="pieQuery.filterKey" placeholder="选择条件" clearable>
             <el-option
-            v-for="key in Object.keys(optionsMap)"
-            :key="key"
-            :label="key"
-            :value="key"
+              v-for="key in Object.keys(optionsMap)"
+              :key="key"
+              :label="key"
+              :value="key"
             />
           </el-select>
         </el-form-item>
 
         <el-form-item>
-          <el-button class="analyze-distribute-btn" @click="handleConditionSearch" :disabled="!isDiseaseDistributionFormValid">
+          <el-button class="analyze-distribute-btn" :disabled="!isDiseaseDistributionFormValid" @click="handleConditionSearch">
             疾病分布分析
           </el-button>
           <el-button @click="resetPie">重置</el-button>
@@ -96,37 +96,37 @@
         <template #header>
           <div class="chart-title">
             疾病患病率分析
-            <div class="chart-subtitle" v-if="barQuery.filterKey">
-              {{barQuery.filterKey}}: {{barQuery.filterValue.join('、') }}
+            <div v-if="barQuery.filterKey" class="chart-subtitle">
+              {{ barQuery.filterKey }}: {{ barQuery.filterValue.join('、') }}
             </div>
           </div>
         </template>
-        <div ref="barChart" style="height: 500px;"></div>
+        <div ref="barChart" style="height: 500px;" />
       </el-card>
 
       <!-- 疾病分布饼图组 -->
       <div v-if="showPieChart" class="pie-charts-container">
-        <el-card 
-          v-for="(pieData, index) in pieChartData" 
-          :key="index" 
+        <el-card
+          v-for="(pieData, index) in pieChartData"
+          :key="index"
           class="pie-chart-card"
         >
           <template #header>
             <div class="chart-title">
               疾病分布分析 - {{ pieQuery.diseases }}
-              <div class="chart-subtitle" v-if="pieQuery.filterKey">
+              <div v-if="pieQuery.filterKey" class="chart-subtitle">
                 条件: {{ pieQuery.filterKey }}
               </div>
             </div>
           </template>
-          <div :ref="`pieChart${index}`" style="height: 400px;"></div>
+          <div :ref="`pieChart${index}`" style="height: 400px;" />
         </el-card>
       </div>
 
       <!-- 无数据提示 -->
       <el-card v-if="!showBarChart && !showPieChart" class="no-data-card">
         <div class="no-data">
-          <i class="el-icon-data-analysis" style="font-size: 48px; margin-bottom: 16px;"></i>
+          <i class="el-icon-data-analysis" style="font-size: 48px; margin-bottom: 16px;" />
           <div>请选择搜索条件并点击分析按钮查看图表</div>
         </div>
       </el-card>
@@ -203,12 +203,12 @@ export default {
   computed: {
     // 患病率分析表单有效性验证（用在button上）
     isDiseaseRateFormValid() {
-      return this.barQuery.filterKey && 
+      return this.barQuery.filterKey &&
              this.barQuery.filterValue.length > 0
     },
     // 疾病分布分析表单有效性验证（用在button上）
     isDiseaseDistributionFormValid() {
-      return this.pieQuery.diseases.length > 0 && 
+      return this.pieQuery.diseases.length > 0 &&
              this.pieQuery.filterKey
     }
   },
@@ -240,7 +240,6 @@ export default {
       })
     },
 
-
     // 图表初始化
     initBarChart() {
       if (this.barChart) {
@@ -262,15 +261,15 @@ export default {
       try {
         // 通过条件值过滤 sampleData
         const filteredData = sampleData
-        .filter(item => this.barQuery.filterValue.includes(item[this.barQuery.filterKey]))
-        .map(item => ({
-          ...item,
-          conditionValue:item[this.barQuery.filterKey] // 新增字段
-        }))
+          .filter(item => this.barQuery.filterValue.includes(item[this.barQuery.filterKey]))
+          .map(item => ({
+            ...item,
+            conditionValue: item[this.barQuery.filterKey] // 新增字段
+          }))
 
         if (filteredData.length > 0) {
           const diseaseNames = [
-            '红细胞增多症', '高血压', '高血脂', '肥胖', 
+            '红细胞增多症', '高血压', '高血脂', '肥胖',
             '脂肪肝', '高尿酸', '包虫病', '病毒性肝炎',
             '肺结核', '流行性感冒', '手足口病'
           ]
@@ -301,24 +300,21 @@ export default {
           this.barChartData = barData
           this.showBarChart = true
           this.showPieChart = false
-          
+
           this.$nextTick(() => {
             this.initBarChart()
             this.renderBarChart()
           })
 
           this.$message.success(`获取到 ${barData.length} 条数据`)
-        } 
-        else {
+        } else {
           this.$message.warning('暂无相关数据')
           this.showBarChart = false
         }
-      } 
-      catch (error) {
+      } catch (error) {
         console.error('获取患病率数据失败:', error)
         this.$message.error('数据获取失败，请检查网络连接')
-      } 
-      finally {
+      } finally {
         this.loading = false
       }
     },
@@ -333,7 +329,7 @@ export default {
           const groups = {}
           sampleData.forEach(item => {
             const conditionValue = item[this.pieQuery.filterKey]
-            if (!groups[conditionValue]){
+            if (!groups[conditionValue]) {
               groups[conditionValue] = []
             }
             groups[conditionValue].push(item) // 如果该条件不存在，则创建空数组，把相应数据放进去
@@ -359,7 +355,7 @@ export default {
           this.pieChartData = allData
           this.showPieChart = true
           this.showBarChart = false
-          
+
           this.$nextTick(() => {
             this.pieCharts = []
             this.pieChartData.forEach((_, index) => {
@@ -390,7 +386,7 @@ export default {
       // 得到类似 {"≤14": [...符合≤14的数据], ......}
       const conditionGroups = {}
       this.barChartData.forEach(item => {
-        if (!conditionGroups[item.conditionValue]) { //检查 conditionGroups 里有没有当前 item.conditionValue 的数组；
+        if (!conditionGroups[item.conditionValue]) { // 检查 conditionGroups 里有没有当前 item.conditionValue 的数组；
           conditionGroups[item.conditionValue] = [] // 如果没有，就创建一个空数组
         }
         conditionGroups[item.conditionValue].push(item)
@@ -409,8 +405,8 @@ export default {
           color: [
             '#5470c6', '#91cc75', '#ee6666', '#fac858', '#73c0de',
             '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc', '#1e90ff'
-            ][index % 10] // 取余运算，颜色在这十个之间循环
-          }
+          ][index % 10] // 取余运算，颜色在这十个之间循环
+        }
       }))
 
       const option = {
@@ -418,7 +414,7 @@ export default {
           text: `患病率对比`,
           left: 'center',
           padding: [-10, 0, 10, 0]
-          
+
         },
         tooltip: {
           trigger: 'axis', // 鼠标悬停显示整条轴上的信息
@@ -454,7 +450,7 @@ export default {
 
     // 饼图
     renderPieChart(index) {
-      if (!this.pieCharts[index]) return      
+      if (!this.pieCharts[index]) return
       const pieData = this.pieChartData[index]
       const option = {
         title: {

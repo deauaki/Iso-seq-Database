@@ -41,7 +41,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <!-- 分页组件 -->
     <div class="pagination" style="text-align:center; margin-top:20px;">
       <el-pagination
@@ -53,7 +53,7 @@
         @current-change="handlePageChange"
       />
     </div>
-    
+
   </div>
 </template>
 
@@ -102,19 +102,19 @@ export default {
       })
     },
     // ⭐ 分页（在模板的分页组件里绑定该事件）
-    handlePageChange(page) {    
+    handlePageChange(page) {
       this.currentPage = page
     },
     // ⭐ 点击查询
     filterTranscript() {
       const keyword = String(this.query.transcript || '').trim() // 去掉前后空格并转化为字符串
-T
+      
       if (!keyword) {
-          this.filteredList = this.list // 默认显示全部（如果keyword为空则返回true）
+        this.filteredList = this.list // 默认显示全部（如果keyword为空则返回true）
       } else {
-          this.filteredList = this.list.filter(item =>
+        this.filteredList = this.list.filter(item =>
           String(item.transcriptId || '').includes(keyword)
-          )
+        )
       }
       this.currentPage = 1
     },
@@ -176,7 +176,7 @@ T
 .button-wrapper {
   width: 100%;       /* 占满整行 */
   margin: 15px 0;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .filtered-container h4 {

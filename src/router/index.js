@@ -65,7 +65,7 @@ export const constantRoutes = [
       meta: { title: '数据', icon: 'table' }
     }]
   },
-  
+
   {
     path: '/about',
     component: Layout,
