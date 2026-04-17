@@ -6,7 +6,7 @@
 
         <!-- Input Field -->
         <el-form-item label="Transcript">
-          <el-input v-model="query.transcript" placeholder="Please enter transcript ID" />
+          <el-input v-model="query.transcript" placeholder="transcript ID" />
         </el-form-item>
 
         <!-- Query and Reset -->
@@ -113,9 +113,9 @@ export default {
         this.filteredList = this.list // 默认显示全部（如果keyword为空则返回true）
       } else {
         this.filteredList = this.list.filter(item =>
-          String(item.transcriptId || '').includes(keyword)
+          String(item.transcriptId || '').trim().toLowerCase() === keyword.toLowerCase()
         )
-      }
+      } 
       this.currentPage = 1
     },
 

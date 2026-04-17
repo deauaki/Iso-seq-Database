@@ -6,14 +6,14 @@
 
       <el-input
         v-model="keyword"
-        placeholder="输入 GeneId 或 GeneName"
+        placeholder="gene name or gene ID"
         clearable
         class="search-input"
         @keyup.enter.native="searchGene"
       />
 
-      <el-button type="primary" @click="searchGene">查询基因表达量</el-button>
-      <el-button @click="resetSearch">重置</el-button>
+      <el-button type="primary" @click="searchGene">Query Gene Expression</el-button>
+      <el-button type="info" @click="resetSearch">Reset</el-button>
 
       <el-switch
         v-model="useLog"
@@ -215,43 +215,53 @@ export default {
 <style scoped>
 
 .page-container {
-
   padding: 25px;
-
 }
 
 .search-panel {
-
   display: flex;
-
   align-items: center;
-
   gap: 12px;
-
   margin-bottom: 20px;
+}
 
+.search-panel .el-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.search-panel .el-button.el-button--primary {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+.search-panel .el-button.el-button--primary:hover {
+  background-color: #3558c2;
+  border-color: #3558c2;
+}
+
+.search-panel .el-button.el-button--info {
+  background-color: #a0aec0;
+  border-color: #a0aec0;
+}
+
+.search-panel .el-button.el-button--info:hover {
+  background-color: #7b8794;
+  border-color: #7b8794;
 }
 
 .search-input {
-
   width: 260px;
-
 }
 
 .chart-container {
-
   width: 100%;
-
   height: 520px;
-
   background: white;
-
   border-radius: 8px;
-
   padding: 10px;
-
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-
 }
 
 </style>

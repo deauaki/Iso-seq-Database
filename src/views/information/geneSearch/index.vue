@@ -6,7 +6,7 @@
 
         <!-- Input Field -->
         <el-form-item label="Gene">
-          <el-input v-model="query.gene" placeholder="Please enter gene name or gene ID" />
+          <el-input v-model="query.gene" placeholder="gene name or gene ID" />
         </el-form-item>
 
         <!-- Query and Reset -->
