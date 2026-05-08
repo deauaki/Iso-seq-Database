@@ -11,7 +11,7 @@ export const constantRoutes = [
     path: '/',
     name: 'Home',
     component: () => import('@/views/home/homepage'),
-    hidden: true  // 不在侧边栏显示
+    hidden: true // 不在侧边栏显示
   },
   {
     path: '/404',

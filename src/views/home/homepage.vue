@@ -2,9 +2,9 @@
   <div class="home-container">
     <!-- 背景装饰 -->
     <div class="bg-decoration">
-      <div class="circle circle-1"></div>
-      <div class="circle circle-2"></div>
-      <div class="circle circle-3"></div>
+      <div class="circle circle-1" />
+      <div class="circle circle-2" />
+      <div class="circle circle-3" />
     </div>
 
     <!-- 导航栏 -->
@@ -17,7 +17,7 @@
         <div class="nav-links">
           <a href="#features">Features</a>
           <a href="#about">About</a>
-          <el-button type="primary" size="small" @click="goToDashboard" class="dashboard-btn">
+          <el-button type="primary" size="small" class="dashboard-btn" @click="goToDashboard">
             Dashboard
           </el-button>
         </div>
@@ -28,7 +28,7 @@
     <div class="hero-section">
       <div class="hero-content">
         <div class="badge">
-          <span class="dot"></span>
+          <span class="dot" />
           Iso-Seq Transcript Database
         </div>
         <h1 class="hero-title">
@@ -40,10 +40,10 @@
           providing high-quality full-length transcript sequences and expression data
         </p>
         <div class="hero-buttons">
-          <el-button type="primary" size="large" @click="goToDashboard" class="btn-primary">
+          <el-button type="primary" size="large" class="btn-primary" @click="goToDashboard">
             Launch Database
           </el-button>
-          <el-button size="large" plain @click="scrollToFeatures" class="btn-secondary">
+          <el-button size="large" plain class="btn-secondary" @click="scrollToFeatures">
             Learn More
           </el-button>
         </div>
@@ -54,12 +54,12 @@
             <div class="stat-number">{{ stats.transcripts }}+</div>
             <div class="stat-label">Transcripts</div>
           </div>
-          <div class="stat-divider"></div>
+          <div class="stat-divider"/>
           <div class="stat-item">
             <div class="stat-number">{{ stats.genes }}+</div>
             <div class="stat-label">Genes</div>
           </div>
-          <div class="stat-divider"></div>
+          <div class="stat-divider"/>
           <div class="stat-item">
             <div class="stat-number">{{ stats.samples }}</div>
             <div class="stat-label">Samples</div>
@@ -67,7 +67,6 @@
         </div>
       </div>
     </div>
-
     
     <!-- 快速查询区域 -->
     <div id="about" class="quick-search-section">
@@ -85,7 +84,7 @@
             Search
           </el-button>
         </div>
-<!--         <div class="example-queries">
+        <!--<div class="example-queries">
           <span>Examples:</span>
           <el-button type="text" @click="setExample('TP53')">TP53</el-button>
           <el-button type="text" @click="setExample('transcript_001')">transcript_001</el-button>
@@ -102,7 +101,7 @@
         <p>Everything you need to explore and analyze Iso-Seq transcript data</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card" v-for="feature in features" :key="feature.title">
+        <div v-for="feature in features" :key="feature.title" class="feature-card">
           <div class="feature-icon" :style="{ background: feature.color }">
             <svg-icon :icon-class="feature.icon" />
           </div>

@@ -4,14 +4,14 @@
 
     <breadcrumb class="breadcrumb-container" />
 
-    <div class="right-menu" v-if="!isHomePage">
+    <div v-if="!isHomePage" class="right-menu">
       <el-button 
         type="primary" 
         size="small" 
-        @click="goToHome"
         class="home-btn"
+        @click="goToHome"
       >
-        <i class="el-icon-s-home"></i>
+        <i class="el-icon-s-home" />
         Back to Home
       </el-button>
     </div>

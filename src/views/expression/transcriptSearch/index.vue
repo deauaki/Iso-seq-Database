@@ -6,14 +6,25 @@
 
       <el-input
         v-model="keyword"
-        placeholder="transcript Id "
+        placeholder="transcript ID"
         clearable
         class="search-input"
         @keyup.enter.native="searchTranscript"
       />
 
-      <el-button type="primary" @click="searchTranscript">Query Transcript Expression</el-button>
-      <el-button type="info" @click="resetSearch">Reset</el-button>
+      <el-button
+        type="primary"
+        @click="searchTranscript"
+      >
+        Query Transcript Expression
+      </el-button>
+
+      <el-button
+        type="info"
+        @click="resetSearch"
+      >
+        Reset
+      </el-button>
 
       <el-switch
         v-model="useLog"
@@ -35,7 +46,7 @@
 </template>
 
 <script>
-import * as echarts from 'echarts'
+import Plotly from 'plotly.js-dist'
 import transcriptData from '@/data/expression/transcript_expression.json'
 
 export default {
@@ -43,71 +54,101 @@ export default {
   name: 'TranscriptExpressionViolin',
 
   data() {
+
     return {
 
       keyword: '',
 
       rawData: [],
 
-      chart: null,
-
       loading: false,
 
       useLog: false
 
     }
+
   },
 
   mounted() {
+
     this.rawData = transcriptData
 
-    this.chart = echarts.init(this.$refs.chart)
+    window.addEventListener('resize', this.handleResize)
 
-    window.addEventListener('resize', () => {
-      this.chart.resize()
-    })
+  },
+
+  beforeDestroy() {
+
+    window.removeEventListener('resize', this.handleResize)
+
   },
 
   methods: {
+
+    handleResize() {
+
+      Plotly.Plots.resize(this.$refs.chart)
+
+    },
+
     searchTranscript() {
+
       const key = this.keyword.trim()
 
       if (!key) {
+
         this.$message.warning('请输入转录本ID')
+
         return
+
       }
 
       this.loading = true
 
       setTimeout(() => {
+
         const matched = this.rawData.filter(item =>
-          item.transcriptId.trim().toLowerCase() === key.toLowerCase()
+
+          item.transcriptId
+            .trim()
+            .toLowerCase() === key.toLowerCase()
+
         )
 
         if (!matched.length) {
+
           this.$message.warning('未找到该转录本')
 
-          this.chart.clear()
+          Plotly.purge(this.$refs.chart)
 
           this.loading = false
 
           return
+
         }
 
         const grouped = {}
 
         matched.forEach(item => {
+
           const id = item.transcriptId
 
-          if (!grouped[id]) grouped[id] = []
+          if (!grouped[id]) {
+
+            grouped[id] = []
+
+          }
 
           let val = Number(item.expression)
 
           if (this.useLog) {
+
             val = Math.log2(val + 1)
+
           }
 
           grouped[id].push(val)
+
         })
 
         const labels = Object.keys(grouped)
@@ -117,75 +158,128 @@ export default {
         this.drawChart(labels, data)
 
         this.loading = false
+
       }, 150)
+
     },
 
     resetSearch() {
+
       this.keyword = ''
 
       this.useLog = false
 
-      this.chart.clear()
+      Plotly.purge(this.$refs.chart)
+
     },
 
     drawChart(labels, data) {
-      const scatterData = []
 
-      data.forEach((arr, i) => {
-        arr.forEach(v => {
-          scatterData.push([v, i])
-        })
-      })
+      const traces = labels.map((label, i) => ({
 
-      const option = {
+        type: 'violin',
 
-        tooltip: {
-          trigger: 'item'
+        orientation: 'h',
+
+        x: data[i],
+
+        y: Array(data[i].length).fill(label),
+
+        name: label,
+
+        box: {
+          visible: true
         },
 
-        grid: {
-          left: 120,
-          right: 50,
-          bottom: 50,
-          top: 40
+        meanline: {
+          visible: true
         },
 
-        xAxis: {
-          type: 'value',
-          name: this.useLog ? 'log2(Expression+1)' : 'Expression',
-          nameLocation: 'middle',
-          nameGap: 30
+        points: 'all',
+
+        jitter: 0.25,
+
+        pointpos: 0,
+
+        marker: {
+          size: 4,
+          opacity: 0.5
         },
 
-        yAxis: {
-          type: 'category',
-          data: labels,
-          name: 'TranscriptId'
+        line: {
+          width: 1.2
         },
 
-        series: [
+        hovertemplate:
+          '<b>%{y}</b><br>' +
+          'Expression: %{x}<extra></extra>'
 
-          {
-            name: 'boxplot',
-            type: 'boxplot',
-            data: data
-          },
+      }))
 
-          {
-            name: 'points',
-            type: 'scatter',
-            data: scatterData,
-            symbolSize: 6,
-            itemStyle: {
-              opacity: 0.6
-            }
+      const layout = {
+
+        title: {
+
+          text: 'Transcript Expression Distribution',
+
+          font: {
+            size: 22
           }
 
-        ]
+        },
+
+        xaxis: {
+
+          title: this.useLog
+            ? 'log2(Expression + 1)'
+            : 'Expression',
+
+          zeroline: false
+
+        },
+
+        yaxis: {
+
+          automargin: true,
+
+          title: {
+            text: 'Transcript ID'
+          }
+
+        },
+
+        height: 520,
+
+        margin: {
+          l: 120,
+          r: 40,
+          t: 60,
+          b: 60
+        },
+
+        plot_bgcolor: '#ffffff',
+
+        paper_bgcolor: '#ffffff',
+
+        showlegend: false
 
       }
 
-      this.chart.setOption(option)
+      const config = {
+
+        responsive: true,
+
+        displayModeBar: true
+
+      }
+
+      Plotly.newPlot(
+        this.$refs.chart,
+        traces,
+        layout,
+        config
+      )
+
     }
 
   }
@@ -204,6 +298,11 @@ export default {
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  width: 260px;
 }
 
 .search-panel .el-button {
@@ -232,13 +331,9 @@ export default {
   border-color: #7b8794;
 }
 
-.search-input {
-  width: 260px;
-}
-
 .chart-container {
   width: 100%;
-  height: 520px;
+  height: 600px;
   background: white;
   border-radius: 8px;
   padding: 10px;
