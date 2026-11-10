@@ -125,6 +125,44 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/analysis',
+    component: Layout,
+    redirect: '/analysis/differential',
+    meta: { title: 'Analysis', icon: 'table' },
+    children: [
+      {
+        path: 'differential',
+        name: 'DifferentialAnalysis',
+        component: () => import('@/views/analysis/differential/index'),
+        meta: { title: 'Differential Analysis', icon: 'table' }
+      },
+      {
+        path: 'qtl',
+        name: 'QtlAnalysis',
+        component: () => import('@/views/analysis/qtl/index'),
+        meta: { title: 'QTL Associations', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/variants',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'VariantSearch',
+        component: () => import('@/views/variants/index'),
+        meta: { title: 'Variant Annotations', icon: 'table' }
+      },
+      {
+        path: ':variantId',
+        name: 'VariantDetail',
+        component: () => import('@/views/variants/detail'),
+        hidden: true
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

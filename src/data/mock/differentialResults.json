@@ -1,0 +1,302 @@
+[
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DGE",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": 0.35,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTE",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-11",
+    "testLevel": "transcript",
+    "effect": 1.2,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": null,
+    "effectMetric": null,
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-11",
+    "testLevel": "transcript",
+    "effect": 24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-12",
+    "testLevel": "transcript",
+    "effect": -24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DGE",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": 0.35,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTE",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-21",
+    "testLevel": "transcript",
+    "effect": 1.2,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": null,
+    "effectMetric": null,
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-21",
+    "testLevel": "transcript",
+    "effect": 24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-A-VS-B",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population A",
+      "denominator": "Population B"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-22",
+    "testLevel": "transcript",
+    "effect": -24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DGE",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": -0.35,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTE",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-11",
+    "testLevel": "transcript",
+    "effect": -1.2,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": null,
+    "effectMetric": null,
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-11",
+    "testLevel": "transcript",
+    "effect": -24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-12",
+    "testLevel": "transcript",
+    "effect": 24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.004,
+    "adjustedPValue": 0.018
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DGE",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": -0.35,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTE",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-21",
+    "testLevel": "transcript",
+    "effect": -1.2,
+    "effectMetric": "log2FoldChange",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": null,
+    "testLevel": "gene",
+    "effect": null,
+    "effectMetric": null,
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-21",
+    "testLevel": "transcript",
+    "effect": -24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  },
+  {
+    "analysisId": "DEMO-B-VS-A",
+    "type": "DTU",
+    "contrast": {
+      "numerator": "Population B",
+      "denominator": "Population A"
+    },
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-22",
+    "testLevel": "transcript",
+    "effect": 24,
+    "effectMetric": "deltaUsagePercentagePoints",
+    "pValue": 0.08,
+    "adjustedPValue": 0.12
+  }
+]

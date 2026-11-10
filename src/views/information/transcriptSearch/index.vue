@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <el-alert title="SQANTI3 demo data · Try DEMO-TX-11" type="info" :closable="false" />
     <!-- ⭐ Filter Section -->
     <div class="filter-container">
       <el-form :inline="true" :model="query">
@@ -7,6 +8,12 @@
         <!-- Input Field -->
         <el-form-item label="Transcript">
           <el-input v-model="query.transcript" placeholder="transcript ID" />
+        </el-form-item>
+
+        <el-form-item label="SQANTI3 category">
+          <el-select v-model="query.category" clearable @change="filterTranscript">
+            <el-option v-for="category in categories" :key="category" :label="category" :value="category" />
+          </el-select>
         </el-form-item>
 
         <!-- Query and Reset -->
@@ -28,6 +35,24 @@
       fit
       highlight-current-row
     >
+      <el-table-column type="expand">
+        <template slot-scope="{ row }">
+          <div v-if="row.isDemo">
+            <p><strong>Synthetic SQANTI3 evidence</strong></p>
+            <p v-for="junction in row.junctions" :key="junction.site">
+              {{ junction.site }} · {{ junction.supportingSampleCount }} supporting samples
+            </p>
+            <p v-if="!row.externalMatches.length">No external database matches</p>
+            <p v-for="match in row.externalMatches" :key="match.accession">
+              {{ match.database }} ({{ match.version }}) · {{ match.accession }}
+            </p>
+            <router-link :to="{ path: '/search/expression/geneSearch', query: { keyword: row.geneId } }">
+              View population expression
+            </router-link>
+          </div>
+          <p v-else>SQANTI3 evidence unavailable</p>
+        </template>
+      </el-table-column>
       <el-table-column
         v-for="col in columns"
         :key="col.prop"
@@ -39,6 +64,17 @@
         <template slot-scope="scope">
           {{ scope.row[col.prop] }}
         </template>
+      </el-table-column>
+      <el-table-column label="SQANTI3 category" prop="structuralCategory" width="155">
+        <template slot-scope="{ row }">{{ row.structuralCategory || '—' }}</template>
+      </el-table-column>
+      <el-table-column label="Sample support" width="130">
+        <template slot-scope="{ row }">
+          {{ row.isDemo ? row.supportingSampleCount + '/' + row.eligibleSampleCount : '—' }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Detection" width="100">
+        <template slot-scope="{ row }">{{ detectionRate(row) }}</template>
       </el-table-column>
     </el-table>
 
@@ -58,6 +94,7 @@
 </template>
 
 <script>
+import { getDemoTranscripts } from '@/api/demoTranscriptome'
 import { getTranscriptInfo } from '@/api/transcriptInfo'
 
 export default {
@@ -68,7 +105,8 @@ export default {
       listLoading: true,
       currentPage: 1, // 当前页码
       pageSize: 10, // 每页显示条数
-      query: { transcript: '' }, // ⭐ 存放筛选条件
+      query: { transcript: '', category: '' },
+      categories: ['FSM', 'ISM', 'NIC', 'NNC'],
       columns: [
         { label: 'TranscriptId', prop: 'transcriptId', width: 300 },
         { label: 'GeneName', prop: 'geneName', width: 250 },
@@ -89,6 +127,15 @@ export default {
       return this.filteredList.slice(start, end)
     }
   },
+  watch: {
+    '$route.query.keyword': {
+      immediate: true,
+      handler(keyword) {
+        this.query.transcript = typeof keyword === 'string' ? keyword : ''
+        this.filterTranscript()
+      }
+    }
+  },
   created() {
     this.fetchData()
   },
@@ -96,8 +143,8 @@ export default {
     fetchData() {
       this.listLoading = true
       getTranscriptInfo().then(response => {
-        this.list = response.data.items
-        this.filteredList = this.list // ⭐ 默认显示全部
+        this.list = [...getDemoTranscripts(), ...response.data.items]
+        this.filterTranscript()
         this.listLoading = false
       })
     },
@@ -107,21 +154,21 @@ export default {
     },
     // ⭐ 点击查询
     filterTranscript() {
-      const keyword = String(this.query.transcript || '').trim() // 去掉前后空格并转化为字符串
-      
-      if (!keyword) {
-        this.filteredList = this.list // 默认显示全部（如果keyword为空则返回true）
-      } else {
-        this.filteredList = this.list.filter(item =>
-          String(item.transcriptId || '').trim().toLowerCase() === keyword.toLowerCase()
-        )
-      } 
+      const keyword = this.query.transcript.trim().toLowerCase()
+      this.filteredList = this.list.filter(item =>
+        (!keyword || String(item.transcriptId).toLowerCase() === keyword) &&
+        (!this.query.category || item.structuralCategory === this.query.category)
+      )
       this.currentPage = 1
+    },
+
+    detectionRate(row) {
+      return row.eligibleSampleCount ? (100 * row.supportingSampleCount / row.eligibleSampleCount).toFixed(1) + '%' : '—'
     },
 
     // ⭐ 点击重置
     resetFilters() {
-      this.query = { transcript: '' }
+      this.query = { transcript: '', category: '' }
       this.filteredList = this.list
       this.currentPage = 1
     }

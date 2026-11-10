@@ -1,5 +1,6 @@
 <template>
   <div class="page-container">
+    <population-expression />
 
     <!-- 查询区域 -->
     <div class="search-panel">
@@ -39,12 +40,15 @@
 </template>
 
 <script>
+import PopulationExpression from './PopulationExpression.vue'
 import Plotly from 'plotly.js-dist'
 import geneData from '@/data/expression/gene_expression.json'
 
 export default {
 
   name: 'GeneExpressionViolin',
+
+  components: { PopulationExpression },
 
   data() {
     return {

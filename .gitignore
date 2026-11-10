@@ -16,7 +16,13 @@ tests/**/coverage/
 *.sln
 
 #data
-src/data/
+src/data/*
+!src/data/mock/
+src/data/mock/*
+!src/data/mock/transcriptExpression.json
+!src/data/mock/differentialResults.json
+!src/data/mock/qtlAssociations.json
+!src/data/mock/variants.json
 *.gtf
 *.tsv
 *.csv

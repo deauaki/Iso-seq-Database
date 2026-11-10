@@ -1,0 +1,73 @@
+[
+  {
+    "variantId": "DEMO-VAR-1",
+    "assembly": "Demo assembly",
+    "chrom": "demoChr1",
+    "pos": 1000,
+    "ref": "A",
+    "alt": "G",
+    "clinvar": [
+      {
+        "accession": "DEMO-CLIN-1",
+        "classification": "Uncertain significance"
+      }
+    ],
+    "transcriptConsequences": [
+      {
+        "geneId": "DEMO-GENE-1",
+        "transcriptId": "DEMO-TX-11",
+        "maneStatus": "MANE Select",
+        "cpc2": "Coding",
+        "consequence": "missense_variant",
+        "exon": 1,
+        "cds": "c.25A>G",
+        "medianTpm": 4,
+        "detectionRate": 0.8571428571428571
+      },
+      {
+        "geneId": "DEMO-GENE-1",
+        "transcriptId": "DEMO-TX-12",
+        "maneStatus": "\u2014",
+        "cpc2": "Noncoding",
+        "consequence": "splice_region_variant",
+        "exon": 2,
+        "cds": null,
+        "medianTpm": 4,
+        "detectionRate": 0.8571428571428571
+      }
+    ]
+  },
+  {
+    "variantId": "DEMO-VAR-2",
+    "assembly": "Demo assembly",
+    "chrom": "demoChr1",
+    "pos": 2000,
+    "ref": "A",
+    "alt": "G",
+    "clinvar": [],
+    "transcriptConsequences": [
+      {
+        "geneId": "DEMO-GENE-2",
+        "transcriptId": "DEMO-TX-21",
+        "maneStatus": "MANE Select",
+        "cpc2": "Coding",
+        "consequence": "missense_variant",
+        "exon": 1,
+        "cds": "c.25A>G",
+        "medianTpm": 4,
+        "detectionRate": 0.8571428571428571
+      },
+      {
+        "geneId": "DEMO-GENE-2",
+        "transcriptId": "DEMO-TX-22",
+        "maneStatus": "\u2014",
+        "cpc2": "Noncoding",
+        "consequence": "splice_region_variant",
+        "exon": 2,
+        "cds": null,
+        "medianTpm": 4,
+        "detectionRate": 0.8571428571428571
+      }
+    ]
+  }
+]

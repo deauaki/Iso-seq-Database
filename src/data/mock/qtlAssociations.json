@@ -1,0 +1,152 @@
+[
+  {
+    "id": "eQTL-1",
+    "type": "eQTL",
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": null,
+    "phenotype": "Gene expression",
+    "variantId": "DEMO-VAR-1",
+    "effectAllele": "G",
+    "otherAllele": "A",
+    "beta": 0.21,
+    "pValue": 0.0001,
+    "adjustedPValue": 0.002,
+    "fineMapping": {
+      "credibleSetId": "DEMO-CS-1",
+      "coverage": 0.95,
+      "posteriorProbability": 0.82
+    },
+    "genotypeGroups": [
+      {
+        "genotype": "A/A",
+        "n": 12,
+        "mean": 0.15
+      },
+      {
+        "genotype": "A/G",
+        "n": 9,
+        "mean": 0.29
+      },
+      {
+        "genotype": "G/G",
+        "n": 5,
+        "mean": 0.41
+      }
+    ]
+  },
+  {
+    "id": "isoQTL-1",
+    "type": "isoQTL",
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-11",
+    "phenotype": "Transcript expression",
+    "variantId": "DEMO-VAR-1",
+    "effectAllele": "G",
+    "otherAllele": "A",
+    "beta": 0.42,
+    "pValue": 0.0001,
+    "adjustedPValue": 0.002,
+    "fineMapping": {
+      "credibleSetId": "DEMO-CS-2",
+      "coverage": 0.95,
+      "posteriorProbability": 0.82
+    },
+    "genotypeGroups": [
+      {
+        "genotype": "A/A",
+        "n": 12,
+        "mean": 0.15
+      },
+      {
+        "genotype": "A/G",
+        "n": 9,
+        "mean": 0.29
+      },
+      {
+        "genotype": "G/G",
+        "n": 5,
+        "mean": 0.41
+      }
+    ]
+  },
+  {
+    "id": "sQTL-1",
+    "type": "sQTL",
+    "geneId": "DEMO-GENE-1",
+    "transcriptId": "DEMO-TX-11",
+    "phenotype": "Junction demo:100\u2013200",
+    "variantId": "DEMO-VAR-1",
+    "effectAllele": "G",
+    "otherAllele": "A",
+    "beta": 0.63,
+    "pValue": 0.0001,
+    "adjustedPValue": 0.002,
+    "fineMapping": {
+      "credibleSetId": "DEMO-CS-3",
+      "coverage": 0.95,
+      "posteriorProbability": 0.82
+    },
+    "genotypeGroups": [
+      {
+        "genotype": "A/A",
+        "n": 12,
+        "mean": 0.15
+      },
+      {
+        "genotype": "A/G",
+        "n": 9,
+        "mean": 0.29
+      },
+      {
+        "genotype": "G/G",
+        "n": 5,
+        "mean": 0.41
+      }
+    ]
+  },
+  {
+    "id": "eQTL-2",
+    "type": "eQTL",
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": null,
+    "phenotype": "Gene expression",
+    "variantId": "DEMO-VAR-2",
+    "effectAllele": "G",
+    "otherAllele": "A",
+    "beta": 0.21,
+    "pValue": 0.08,
+    "adjustedPValue": 0.15,
+    "fineMapping": null,
+    "genotypeGroups": []
+  },
+  {
+    "id": "isoQTL-2",
+    "type": "isoQTL",
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-21",
+    "phenotype": "Transcript expression",
+    "variantId": "DEMO-VAR-2",
+    "effectAllele": "G",
+    "otherAllele": "A",
+    "beta": 0.42,
+    "pValue": 0.08,
+    "adjustedPValue": 0.15,
+    "fineMapping": null,
+    "genotypeGroups": []
+  },
+  {
+    "id": "sQTL-2",
+    "type": "sQTL",
+    "geneId": "DEMO-GENE-2",
+    "transcriptId": "DEMO-TX-21",
+    "phenotype": "Junction demo:100\u2013200",
+    "variantId": "DEMO-VAR-2",
+    "effectAllele": "G",
+    "otherAllele": "A",
+    "beta": 0.63,
+    "pValue": 0.08,
+    "adjustedPValue": 0.15,
+    "fineMapping": null,
+    "genotypeGroups": []
+  }
+]

@@ -131,9 +131,9 @@ export default {
     return {
       quickKeyword: '',
       stats: {
-        transcripts: 12500,
-        genes: 4500,
-        samples: 156
+        transcripts: 217107,
+        genes: 14301,
+        samples: 21
       },
       features: [
         {

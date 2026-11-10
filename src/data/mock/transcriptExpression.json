@@ -1,0 +1,204 @@
+[
+  {
+    "geneId": "DEMO-GENE-1",
+    "geneName": "DEMO1",
+    "cohortId": "Synthetic cohort",
+    "tissue": "Demo PBMC",
+    "groups": [
+      {
+        "populationId": "Population A",
+        "samples": [
+          {
+            "geneTpm": 11,
+            "transcriptTpm": {
+              "DEMO-TX-11": 8,
+              "DEMO-TX-12": 2
+            }
+          },
+          {
+            "geneTpm": 11,
+            "transcriptTpm": {
+              "DEMO-TX-11": 6,
+              "DEMO-TX-12": 4
+            }
+          },
+          {
+            "geneTpm": 0,
+            "transcriptTpm": {
+              "DEMO-TX-11": 0,
+              "DEMO-TX-12": 0
+            }
+          },
+          {
+            "geneTpm": 13,
+            "transcriptTpm": {
+              "DEMO-TX-11": 9,
+              "DEMO-TX-12": 3
+            }
+          }
+        ]
+      },
+      {
+        "populationId": "Population B",
+        "samples": [
+          {
+            "geneTpm": 11,
+            "transcriptTpm": {
+              "DEMO-TX-11": 2,
+              "DEMO-TX-12": 8
+            }
+          },
+          {
+            "geneTpm": 13,
+            "transcriptTpm": {
+              "DEMO-TX-11": 4,
+              "DEMO-TX-12": 8
+            }
+          },
+          {
+            "geneTpm": 10,
+            "transcriptTpm": {
+              "DEMO-TX-11": 3,
+              "DEMO-TX-12": 6
+            }
+          }
+        ]
+      }
+    ],
+    "transcripts": [
+      {
+        "transcriptId": "DEMO-TX-11",
+        "structuralCategory": "FSM",
+        "supportingSampleCount": 6,
+        "eligibleSampleCount": 7,
+        "junctions": [
+          {
+            "site": "demo:100\u2013200",
+            "supportingSampleCount": 6
+          }
+        ],
+        "externalMatches": [
+          {
+            "database": "Demo reference",
+            "version": "1",
+            "accession": "DEMO-REF-1"
+          }
+        ]
+      },
+      {
+        "transcriptId": "DEMO-TX-12",
+        "structuralCategory": "ISM",
+        "supportingSampleCount": 6,
+        "eligibleSampleCount": 7,
+        "junctions": [
+          {
+            "site": "demo:100\u2013200",
+            "supportingSampleCount": 6
+          }
+        ],
+        "externalMatches": [
+          {
+            "database": "Demo reference",
+            "version": "1",
+            "accession": "DEMO-REF-1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "geneId": "DEMO-GENE-2",
+    "geneName": "DEMO2",
+    "cohortId": "Synthetic cohort",
+    "tissue": "Demo PBMC",
+    "groups": [
+      {
+        "populationId": "Population A",
+        "samples": [
+          {
+            "geneTpm": 11,
+            "transcriptTpm": {
+              "DEMO-TX-21": 8,
+              "DEMO-TX-22": 2
+            }
+          },
+          {
+            "geneTpm": 11,
+            "transcriptTpm": {
+              "DEMO-TX-21": 6,
+              "DEMO-TX-22": 4
+            }
+          },
+          {
+            "geneTpm": 0,
+            "transcriptTpm": {
+              "DEMO-TX-21": 0,
+              "DEMO-TX-22": 0
+            }
+          },
+          {
+            "geneTpm": 13,
+            "transcriptTpm": {
+              "DEMO-TX-21": 9,
+              "DEMO-TX-22": 3
+            }
+          }
+        ]
+      },
+      {
+        "populationId": "Population B",
+        "samples": [
+          {
+            "geneTpm": 11,
+            "transcriptTpm": {
+              "DEMO-TX-21": 2,
+              "DEMO-TX-22": 8
+            }
+          },
+          {
+            "geneTpm": 13,
+            "transcriptTpm": {
+              "DEMO-TX-21": 4,
+              "DEMO-TX-22": 8
+            }
+          },
+          {
+            "geneTpm": 10,
+            "transcriptTpm": {
+              "DEMO-TX-21": 3,
+              "DEMO-TX-22": 6
+            }
+          }
+        ]
+      }
+    ],
+    "transcripts": [
+      {
+        "transcriptId": "DEMO-TX-21",
+        "structuralCategory": "NIC",
+        "supportingSampleCount": 6,
+        "eligibleSampleCount": 7,
+        "junctions": [
+          {
+            "site": "demo:100\u2013200",
+            "supportingSampleCount": 6
+          }
+        ],
+        "externalMatches": []
+      },
+      {
+        "transcriptId": "DEMO-TX-22",
+        "structuralCategory": "NNC",
+        "supportingSampleCount": 6,
+        "eligibleSampleCount": 7,
+        "junctions": [
+          {
+            "site": "demo:100\u2013200",
+            "supportingSampleCount": 6
+          }
+        ],
+        "externalMatches": []
+      }
+    ]
+  }
+]
