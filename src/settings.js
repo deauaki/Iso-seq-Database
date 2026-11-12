@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: 'Iso-Seq Transcript Database',
 
   /**
    * @type {boolean} true | false

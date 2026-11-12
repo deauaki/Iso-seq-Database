@@ -1,0 +1,85 @@
+:root {
+  --portal-ink: #172d43;
+  --portal-muted: #465d70;
+  --portal-accent: #245578;
+  --portal-line: #dce4ea;
+}
+
+body {
+  color: var(--portal-ink);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#app a:focus-visible,
+#app button:focus-visible,
+#app input:focus-visible {
+  outline: 2px solid var(--portal-accent);
+  outline-offset: 2px;
+}
+
+#app .app-wrapper {
+  min-height: 100vh;
+  background: #f6f8fa;
+}
+
+#app .app-container {
+  padding: clamp(16px, 3vw, 36px);
+}
+
+#app .app-container > h1 {
+  margin: 0 0 16px;
+  font-size: clamp(24px, 3vw, 32px);
+}
+
+#app .el-button--primary {
+  color: #fff;
+  background: var(--portal-accent);
+  border-color: var(--portal-accent);
+}
+
+#app .el-button--primary:hover {
+  background: #1b4564;
+  border-color: #1b4564;
+}
+
+#app .el-table {
+  color: var(--portal-ink);
+  border-radius: 6px;
+}
+
+#app .el-table th {
+  color: var(--portal-muted);
+  background: #edf2f6;
+}
+
+#app .el-table a {
+  color: var(--portal-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#app .el-tabs__item.is-active,
+#app .el-tabs__item:hover {
+  color: var(--portal-accent);
+}
+
+#app .el-tabs__active-bar {
+  background-color: var(--portal-accent);
+}
+
+#app .portal-search input,
+#app .portal-search button {
+  min-height: 44px;
+}
+
+#app .portal-header a:focus-visible,
+#app .portal-banner a:focus-visible,
+#app .portal-banner button:focus-visible,
+#app .portal-banner input:focus-visible {
+  outline-color: #ffbd70;
+}
+
+#app .sidebar-container .el-menu-item.is-active {
+  background-color: #eaf1f6 !important;
+  box-shadow: inset 3px 0 #bf651d;
+}

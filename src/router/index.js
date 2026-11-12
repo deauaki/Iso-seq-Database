@@ -105,27 +105,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/sample',
-    component: Layout,
-    redirect: '/sample/table',
-    name: 'Sample',
-    meta: { title: 'Tools', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Browser', icon: 'table' }
-      },
-      {
-        path: 'diseaseMap',
-        name: 'DiseaseMap',
-        component: () => import('@/views/diseaseMap/index'),
-        meta: { title: 'Imputation', icon: 'table' }
-      }
-    ]
-  },
-  {
     path: '/analysis',
     component: Layout,
     redirect: '/analysis/differential',
@@ -135,13 +114,13 @@ export const constantRoutes = [
         path: 'differential',
         name: 'DifferentialAnalysis',
         component: () => import('@/views/analysis/differential/index'),
-        meta: { title: 'Differential Analysis', icon: 'table' }
+        meta: { title: 'Differential Analysis' }
       },
       {
         path: 'qtl',
         name: 'QtlAnalysis',
         component: () => import('@/views/analysis/qtl/index'),
-        meta: { title: 'QTL Associations', icon: 'table' }
+        meta: { title: 'QTL Associations' }
       }
     ]
   },

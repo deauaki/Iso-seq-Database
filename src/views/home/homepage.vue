@@ -1,646 +1,111 @@
 <template>
-  <div class="home-container">
-    <!-- 背景装饰 -->
-    <div class="bg-decoration">
-      <div class="circle circle-1" />
-      <div class="circle circle-2" />
-      <div class="circle circle-3" />
-    </div>
+  <div class="portal-home">
+    <header class="portal-header">
+      <div class="portal-wrap portal-header-inner">
+        <router-link class="portal-brand" to="/">Iso-Seq DB</router-link>
+        <nav aria-label="Main navigation">
+          <router-link to="/dashboard">Database</router-link>
+          <router-link to="/about/about">About</router-link>
+        </nav>
+      </div>
+    </header>
 
-    <!-- 导航栏 -->
-    <nav class="navbar">
-      <div class="nav-content">
-        <div class="logo">
-          <svg-icon icon-class="dashboard" />
-          <span>Iso-Seq<span class="highlight">DB</span></span>
+    <main>
+      <section class="portal-hero" data-enter>
+        <div class="portal-wrap portal-banner">
+          <h1>Iso-Seq Transcript Database</h1>
+          <p>Explore full-length transcripts, compare expression across populations, and browse variant annotations.</p>
+          <form class="portal-search" @submit.prevent="quickSearch">
+            <label for="portal-transcript">Transcript ID</label>
+            <div class="portal-search-controls">
+              <el-input id="portal-transcript" v-model="quickKeyword" placeholder="Enter a transcript ID" required />
+              <el-button type="primary" native-type="submit">Search transcripts</el-button>
+            </div>
+          </form>
+          <router-link class="portal-example" :to="{ path: transcriptPath, query: { keyword: 'DEMO-TX-11' } }">
+            Try DEMO-TX-11 <span aria-hidden="true">→</span>
+          </router-link>
         </div>
-        <div class="nav-links">
-          <a href="#features">Features</a>
-          <a href="#about">About</a>
-          <el-button type="primary" size="small" class="dashboard-btn" @click="goToDashboard">
-            Dashboard
-          </el-button>
-        </div>
-      </div>
-    </nav>
+      </section>
 
-    <!-- Hero 区域 -->
-    <div class="hero-section">
-      <div class="hero-content">
-        <div class="badge">
-          <span class="dot" />
-          Iso-Seq Transcript Database
+      <section class="portal-wrap portal-directory">
+        <h2>Browse the database</h2>
+        <div class="portal-grid">
+          <router-link v-for="entry in entries" :key="entry.path" :to="entry.path" class="portal-entry">
+            <span class="portal-entry-heading">{{ entry.title }} <span aria-hidden="true">↗</span></span>
+            <span>{{ entry.description }}</span>
+          </router-link>
         </div>
-        <h1 class="hero-title">
-          Explore Full-Length<br>
-          <span class="gradient-text">Transcriptome</span> with Ease
-        </h1>
-        <p class="hero-subtitle">
-          A comprehensive database for Iso-Seq transcript analysis,
-          providing high-quality full-length transcript sequences and expression data
-        </p>
-        <div class="hero-buttons">
-          <el-button type="primary" size="large" class="btn-primary" @click="goToDashboard">
-            Launch Database
-          </el-button>
-          <el-button size="large" plain class="btn-secondary" @click="scrollToFeatures">
-            Learn More
-          </el-button>
-        </div>
-
-        <!-- 统计信息 -->
-        <div class="stats">
-          <div class="stat-item">
-            <div class="stat-number">{{ stats.transcripts }}+</div>
-            <div class="stat-label">Transcripts</div>
-          </div>
-          <div class="stat-divider"/>
-          <div class="stat-item">
-            <div class="stat-number">{{ stats.genes }}+</div>
-            <div class="stat-label">Genes</div>
-          </div>
-          <div class="stat-divider"/>
-          <div class="stat-item">
-            <div class="stat-number">{{ stats.samples }}</div>
-            <div class="stat-label">Samples</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 快速查询区域 -->
-    <div id="about" class="quick-search-section">
-      <div class="quick-search-card">
-        <h3>Quick Search</h3>
-        <p>Enter a transcript ID or gene name to get started</p>
-        <div class="quick-search-input">
-          <el-input
-            v-model="quickKeyword"
-            placeholder="e.g., transcript_001, TP53, BRCA1"
-            size="large"
-            @keyup.enter.native="quickSearch"
-          />
-          <el-button type="primary" size="large" @click="quickSearch">
-            Search
-          </el-button>
-        </div>
-        <!--<div class="example-queries">
-          <span>Examples:</span>
-          <el-button type="text" @click="setExample('TP53')">TP53</el-button>
-          <el-button type="text" @click="setExample('transcript_001')">transcript_001</el-button>
-          <el-button type="text" @click="setExample('BRCA1')">BRCA1</el-button>
-        </div> -->
-      </div>
-    </div>
-
-    <!-- Features 区域 -->
-    <div id="features" class="features-section">
-      <div class="section-header">
-        <span class="section-badge">Features</span>
-        <h2>Powerful Features for Transcript Analysis</h2>
-        <p>Everything you need to explore and analyze Iso-Seq transcript data</p>
-      </div>
-      <div class="features-grid">
-        <div v-for="feature in features" :key="feature.title" class="feature-card">
-          <div class="feature-icon" :style="{ background: feature.color }">
-            <svg-icon :icon-class="feature.icon" />
-          </div>
-          <h3>{{ feature.title }}</h3>
-          <p>{{ feature.description }}</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <svg-icon icon-class="dashboard" />
-          <span>Iso-Seq<span class="highlight">DB</span></span>
-        </div>
-        <p>&copy; 2024 Iso-Seq Transcript Database. All rights reserved.</p>
-      </div>
+      </section>
+    </main>
+    <footer class="portal-footer">
+      <div class="portal-wrap">Iso-Seq Transcript Database</div>
     </footer>
   </div>
 </template>
 
 <script>
+const transcriptPath = '/search/information/transcriptSearch'
+
 export default {
   name: 'Home',
   data() {
     return {
       quickKeyword: '',
-      stats: {
-        transcripts: 217107,
-        genes: 14301,
-        samples: 21
-      },
-      features: [
-        {
-          title: 'Transcript Search',
-          description: 'Quickly search transcripts by ID, gene name, or genomic location with auto-complete suggestions.',
-          icon: 'form',
-          color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-        },
-        {
-          title: 'Expression Analysis',
-          description: 'View expression levels across different samples and conditions with interactive charts.',
-          icon: 'table',
-          color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
-        },
-        {
-          title: 'Structure Visualization',
-          description: 'Explore full-length transcript sequences with coverage plots and annotation tracks.',
-          icon: 'example',
-          color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
-        },
-        {
-          title: 'Annotation Information',
-          description: 'Access comprehensive gene and transcript annotation data.',
-          icon: 'annotation-dots',
-          color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-        },
-        {
-          title: 'Sample Browser',
-          description: 'Browse and filter samples across different conditions and tissue types.',
-          icon: 'tree',
-          color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
-        },
-        {
-          title: 'Data Download',
-          description: 'Download transcript sequences, expression matrices, and analysis results.',
-          icon: 'data',
-          color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
-        }
+      transcriptPath,
+      entries: [
+        { title: 'Transcript annotation', path: transcriptPath, description: 'SQANTI3 categories, detection rates and splice junction support.' },
+        { title: 'Population expression', path: '/search/expression/geneSearch', description: 'Gene and transcript TPM, plus transcript usage by population.' },
+        { title: 'Differential analysis', path: '/analysis/differential', description: 'Gene expression, transcript expression and usage results.' },
+        { title: 'QTL associations', path: '/analysis/qtl', description: 'Expression, isoform and splicing associations.' },
+        { title: 'Variant annotation', path: '/variants', description: 'Transcript consequences, coding potential and ClinVar classifications.' },
+        { title: 'Transcript structure', path: '/search/structure', description: 'Run SQANTI3 and browse structural analysis outputs.' }
       ]
     }
   },
   methods: {
-    goToDashboard() {
-      this.$router.push('/dashboard')
-    },
-    scrollToFeatures() {
-      const featuresSection = document.getElementById('features')
-      if (featuresSection) {
-        featuresSection.scrollIntoView({ behavior: 'smooth' })
-      }
-    },
     quickSearch() {
-      if (this.quickKeyword.trim()) {
-        // 跳转到 transcript search 页面并传递参数
-        this.$router.push({
-          path: '/search/information/transcriptSearch',
-          query: { keyword: this.quickKeyword }
-        })
-      }
-    },
-    setExample(example) {
-      this.quickKeyword = example
-      this.quickSearch()
+      const keyword = this.quickKeyword.trim()
+      if (keyword) this.$router.push({ path: this.transcriptPath, query: { keyword }})
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.home-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-  position: relative;
-  overflow-x: hidden;
+<style scoped>
+.portal-home { background: #f6f8fa; min-height: 100vh; }
+.portal-wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+.portal-header { background: #0b172d; color: #fff; }
+.portal-header-inner { display: flex; justify-content: space-between; align-items: center; min-height: 68px; gap: 16px; }
+.portal-brand { color: #fff; font-size: 22px; font-weight: 700; white-space: nowrap; }
+.portal-header nav { display: flex; gap: clamp(12px, 3vw, 32px); }
+.portal-header nav a { display: flex; align-items: center; min-height: 44px; }
+.portal-header nav a:hover { color: #ffbd70; }
+.portal-hero { padding-top: 24px; }
+.portal-banner { background: #10233e; color: #fff; border-radius: 8px; padding: clamp(28px, 7vw, 96px); border-top: 3px solid #e18a34; }
+.portal-hero h1 { font-size: clamp(32px, 5vw, 56px); letter-spacing: -.035em; line-height: 1.1; margin: 0 0 18px; }
+.portal-hero p { color: #d4e0ed; font-size: 17px; line-height: 1.6; max-width: 620px; margin: 0 0 30px; }
+.portal-search { max-width: 620px; }
+.portal-search label { display: block; margin-bottom: 8px; font-weight: 600; }
+.portal-search-controls { display: flex; gap: 10px; }
+.portal-example { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #ffbd70; }
+.portal-example:hover { color: #ffbd70; text-decoration: underline; }
+.portal-directory { padding-block: 44px 64px; }
+.portal-directory h2 { margin: 0 0 20px; font-size: 24px; }
+.portal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.portal-entry { display: flex; flex-direction: column; gap: 8px; padding: 20px; background: #fff; border: 1px solid #dce4ea; border-radius: 6px; color: var(--portal-muted); line-height: 1.5; transition: transform .18s ease, border-color .18s ease; }
+.portal-entry:hover { transform: translateY(-2px); border-color: var(--portal-accent); color: var(--portal-muted); }
+.portal-entry-heading { display: flex; justify-content: space-between; gap: 12px; color: var(--portal-accent); font-size: 17px; font-weight: 650; }
+.portal-footer { border-top: 1px solid #dce4ea; padding: 24px 0; color: var(--portal-muted); }
+@media (max-width: 850px) { .portal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 540px) {
+  .portal-wrap { width: calc(100% - 32px); }
+  .portal-grid { grid-template-columns: 1fr; }
+  .portal-search-controls { flex-direction: column; }
 }
-
-/* 背景装饰 */
-.bg-decoration {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
+@media (prefers-reduced-motion: no-preference) {
+  .portal-hero [id], .portal-hero h1 { animation: portal-enter .38s ease-out both; }
+  @keyframes portal-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 }
-
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  animation: float 20s infinite;
-}
-
-.circle-1 {
-  width: 500px;
-  height: 500px;
-  top: -250px;
-  right: -100px;
-}
-
-.circle-2 {
-  width: 300px;
-  height: 300px;
-  bottom: 100px;
-  left: -100px;
-  animation-delay: 5s;
-}
-
-.circle-3 {
-  width: 200px;
-  height: 200px;
-  bottom: 50%;
-  right: 20%;
-  animation-delay: 10s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-}
-
-/* 导航栏 */
-.navbar {
-  position: relative;
-  z-index: 10;
-  padding: 20px 40px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nav-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-
-  .highlight {
-    color: #667eea;
-  }
-}
-
-.nav-links {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-
-  a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: color 0.3s;
-
-    &:hover {
-      color: white;
-    }
-  }
-}
-
-.dashboard-btn {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.3);
-  color: white;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: white;
-  }
-}
-
-/* Hero 区域 */
-.hero-section {
-  position: relative;
-  z-index: 10;
-  padding: 80px 20px;
-  text-align: center;
-}
-
-.hero-content {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(102, 126, 234, 0.2);
-  padding: 8px 16px;
-  border-radius: 50px;
-  font-size: 14px;
-  color: #a8b2ff;
-  margin-bottom: 30px;
-  backdrop-filter: blur(5px);
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  background: #667eea;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
-}
-
-.hero-title {
-  font-size: 64px;
-  font-weight: 800;
-  color: white;
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.hero-subtitle {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-  margin-bottom: 40px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 60px;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  padding: 12px 32px;
-  font-size: 16px;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-  }
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 12px 32px;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: white;
-  }
-}
-
-/* 统计信息 */
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  padding-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 36px;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Features 区域 */
-.features-section {
-  position: relative;
-  z-index: 10;
-  padding: 80px 20px;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.section-badge {
-  display: inline-block;
-  background: rgba(102, 126, 234, 0.2);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  color: #667eea;
-  margin-bottom: 16px;
-}
-
-.section-header h2 {
-  font-size: 36px;
-  color: white;
-  margin-bottom: 16px;
-}
-
-.section-header p {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 18px;
-}
-
-.features-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-}
-
-.feature-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 30px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.08);
-  }
-}
-
-.feature-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-
-  ::v-deep .svg-icon {
-    font-size: 28px;
-    color: white;
-  }
-}
-
-.feature-card h3 {
-  color: white;
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.feature-card p {
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.6;
-}
-
-/* 快速查询区域 */
-.quick-search-section {
-  position: relative;
-  z-index: 10;
-  padding: 80px 20px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.quick-search-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 40px;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.quick-search-card h3 {
-  color: white;
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-
-.quick-search-card p {
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 30px;
-}
-
-.quick-search-input {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-
-  ::v-deep .el-input__inner {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: white;
-
-    &::placeholder {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    &:focus {
-      border-color: #667eea;
-    }
-  }
-}
-
-.example-queries {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-
-  ::v-deep .el-button--text {
-    color: #667eea;
-
-    &:hover {
-      color: #764ba2;
-    }
-  }
-}
-
-/* Footer */
-.footer {
-  position: relative;
-  z-index: 10;
-  padding: 40px;
-  background: rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 16px;
-
-  .highlight {
-    color: #667eea;
-  }
-}
-
-.footer p {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 40px;
-  }
-
-  .stats {
-    gap: 30px;
-  }
-
-  .stat-number {
-    font-size: 24px;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .quick-search-input {
-    flex-direction: column;
-  }
-
-  .nav-links {
-    a:not(.dashboard-btn) {
-      display: none;
-    }
-  }
-}
+@media (prefers-reduced-motion: reduce) { .portal-entry { transition: none; } }
 </style>

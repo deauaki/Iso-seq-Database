@@ -1,21 +1,20 @@
 <template>
   <section class="population-expression">
-    <h2>Population expression · Synthetic demo</h2>
-    <el-input v-model="keyword" aria-label="Demo gene" @keyup.enter.native="search" />
-    <el-button type="primary" @click="search">Query demo gene</el-button>
+    <el-input v-model="keyword" aria-label="Gene ID or name" placeholder="Gene ID or name" @keyup.enter.native="search" />
+    <el-button type="primary" @click="search">Query gene</el-button>
     <p v-if="!gene">Try DEMO-GENE-1 or DEMO-GENE-2.</p>
     <template v-else>
-      <p>{{ gene.geneId }} · {{ gene.cohortId }} · {{ gene.tissue }}</p>
-      <el-checkbox-group v-model="populations" @change="renderCharts">
+      <p>{{ gene.geneId }} · {{ gene.cohortId }} · {{ gene.tissue }} <el-tag size="small" type="info">Demo data</el-tag></p>
+      <el-checkbox-group v-model="populations" @change="updateCharts">
         <el-checkbox v-for="group in gene.groups" :key="group.populationId" :label="group.populationId">
           {{ group.populationId }} (n={{ group.samples.length }})
         </el-checkbox>
       </el-checkbox-group>
       <p v-if="!populations.length">Select a population to show expression.</p>
       <div class="population-charts">
-        <div ref="geneTpm" />
-        <div ref="transcriptTpm" />
-        <div ref="usage" />
+        <div v-for="chart in charts" :key="chart.ref" class="population-chart">
+          <div :ref="chart.ref" :style="{ minWidth: chartMinWidth(chart.ref) + 'px' }" />
+        </div>
       </div>
       <p>Usage is calculated per sample from the sum of displayed transcript TPMs. Samples with a zero sum are excluded from usage.</p>
     </template>
@@ -34,7 +33,7 @@ const charts = [
 
 export default {
   data() {
-    return { keyword: 'DEMO-GENE-1', gene: null, populations: [] }
+    return { charts, keyword: 'DEMO-GENE-1', gene: null, populations: [] }
   },
   watch: {
     '$route.query.keyword': {
@@ -45,7 +44,20 @@ export default {
       }
     }
   },
+  mounted() {
+    if (typeof ResizeObserver !== 'undefined') {
+      this.chartObserver = new ResizeObserver(() => {
+        if (!this.populations.length) return
+        charts.forEach(({ ref }) => {
+          const chart = this.chartElement(ref)
+          if (chart && chart._fullLayout) Plotly.Plots.resize(chart)
+        })
+      })
+      this.chartObserver.observe(this.$el)
+    }
+  },
   beforeDestroy() {
+    if (this.chartObserver) this.chartObserver.disconnect()
     this.purgeCharts()
   },
   methods: {
@@ -54,12 +66,22 @@ export default {
       this.purgeCharts()
       this.gene = gene
       this.populations = gene ? gene.groups.map(group => group.populationId) : []
-      await this.$nextTick()
-      this.renderCharts()
+      this.updateCharts()
+    },
+    updateCharts() {
+      this.$nextTick(this.renderCharts)
+    },
+    chartElement(ref) {
+      return this.$refs[ref] && this.$refs[ref][0]
+    },
+    chartMinWidth(ref) {
+      const categoryCount = ref === 'geneTpm' ? 1 : this.gene.transcripts.length
+      return 80 + 48 * this.populations.length * categoryCount
     },
     purgeCharts() {
       charts.forEach(({ ref }) => {
-        if (this.$refs[ref]) Plotly.purge(this.$refs[ref])
+        const chart = this.chartElement(ref)
+        if (chart) Plotly.purge(chart)
       })
     },
     renderCharts() {
@@ -90,14 +112,25 @@ export default {
               }
             })
           })
-          return { type: 'box', name: group.populationId + ' (n=' + samples.length + ')', x, y }
+          return {
+            type: 'violin',
+            name: group.populationId + ' (n=' + samples.length + ')',
+            x,
+            y,
+            spanmode: 'hard',
+            points: 'all',
+            meanline: { visible: true }
+          }
         })
 
-        Plotly.react(this.$refs[ref], traces, {
+        Plotly.react(this.chartElement(ref), traces, {
+          autosize: true,
+          height: 380,
           title: { text: title },
           yaxis: { title: { text: unit }, rangemode: 'tozero' },
-          boxmode: 'group',
+          violinmode: 'group',
           legend: { orientation: 'h' },
+          xaxis: { automargin: true },
           margin: { l: 52, r: 15, t: 55, b: 65 }
         }, { responsive: true, displayModeBar: false })
       })
@@ -118,10 +151,13 @@ export default {
 }
 .population-charts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 16px;
 }
-.population-charts > div {
+.population-chart {
+  width: 100%;
   min-width: 0;
+  overflow-x: auto;
 }
 </style>
